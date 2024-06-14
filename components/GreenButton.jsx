@@ -7,9 +7,11 @@ export default function GreenButton(props) {
             justifyContent: "center",
             paddingVertical: props.paddingV ? props.paddingV : 10,
             paddingHorizontal: props.paddingH ? props.paddingH : 20,
+            marginHorizontal: props.marginH ? props.marginH : 0,
+            marginVertical: props.marginV ? props.marginV : 0,
             backgroundColor: "#008000",
             borderRadius: 6,
-            width: "auto", // Ensure the button does not take full width
+            width: props.width ? props.width : "auto", // Ensure the button does not take full width
             maxWidth: 200, // Set a maximum width for the button
         },
         text: {

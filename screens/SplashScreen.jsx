@@ -1,31 +1,33 @@
 import { StyleSheet, View, Text, Image } from "react-native";
 import GreenButton from "../components/GreenButton";
 import RecyConLogo from "../assets/images/recycon.png";
+import BelowStatusBarView from "../components/BelowStatusBarView";
 
-export default function SplashScreen() {
+export default function SplashScreen(props) {
     function handleSigninOnPress() {
-        console.log("sign in is clicked!");
+        props.navigation.navigate('Login')
     }
 
     function handleCreateAccountOnPress() {
-        console.log("create account is clicked!");
+        props.navigation.navigate('CreateAccount')
     }
 
-
     return (
-        <View style={styles.backgroundView}>
-            <Text style={styles.logoText}>RecyCon</Text>
-            <Image style={styles.image} source={RecyConLogo} />
-            <View style={styles.foregroundView}>
-                <Text style={styles.welcomeText}>Welcome</Text>
-                <Text style={styles.leadText}>Let's Revolutionize Recycling Together.</Text>
+        <BelowStatusBarView>
+            <View style={styles.backgroundView}>
+                <Text style={styles.logoText}>RecyCon</Text>
+                <Image style={styles.image} source={RecyConLogo} />
+                <View style={styles.foregroundView}>
+                    <Text style={styles.welcomeText}>Welcome</Text>
+                    <Text style={styles.leadText}>Let's Revolutionize Recycling Together.</Text>
 
-                <View style={styles.buttonContainer}>
-                    <GreenButton btnTitle="Sign in" paddingH={60} paddingV={6} onPressFunction={handleSigninOnPress} />
-                    <Text onPress={handleCreateAccountOnPress} style={styles.createAccountText}>Create an account</Text>
+                    <View style={styles.buttonContainer}>
+                        <GreenButton btnTitle="Sign in" paddingH={60} paddingV={6} onPressFunction={handleSigninOnPress} />
+                        <Text onPress={handleCreateAccountOnPress} style={styles.createAccountText}>Create an account</Text>
+                    </View>
                 </View>
             </View>
-        </View>
+        </BelowStatusBarView>
     );
 }
 
