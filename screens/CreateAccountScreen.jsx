@@ -25,7 +25,6 @@ export default function CreateAccountScreen(props) {
                 <FontAwesome name="user-circle-o" size={50} color="black" style={styles.icon} />
                 <Text style={styles.titleText}>create an account</Text>
                 <View style={styles.inputTextContainer}>
-                    <Text style={styles.selectAccountText}>Select account type:</Text>
                     <DropDownPicker
                         open={open}
                         value={value}
@@ -36,6 +35,7 @@ export default function CreateAccountScreen(props) {
                         style={styles.dropDown}
                         dropDownContainerStyle={styles.dropDownContainer}
                         textStyle={styles.dropDownText}
+                        placeholder="Select account type"
                     />
                     <ScrollView contentContainerStyle={styles.scrollContainer}>
                         <TextInput style={styles.inputText} placeholder="First Name" />
@@ -88,10 +88,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 20,
         marginBottom: 15
-    },
-    selectAccountText: {
-        marginHorizontal: 10,
-        fontSize: 16
     },
     dropDown: {
         maxWidth: 250,
