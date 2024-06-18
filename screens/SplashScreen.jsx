@@ -3,6 +3,7 @@ import GreenButton from "../components/GreenButton";
 import RecyConLogo from "../assets/images/recycon.png";
 import BelowStatusBarView from "../components/BelowStatusBarView";
 
+
 export default function SplashScreen(props) {
     function handleSigninOnPress() {
         props.navigation.navigate('Login')

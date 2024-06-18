@@ -2,12 +2,45 @@ import { TextInput, StyleSheet, View, Text } from "react-native";
 import BelowStatusBarView from "../components/BelowStatusBarView";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import GreenButton from "../components/GreenButton";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState, useContext } from "react";
+import axios from 'axios'
+import { AuthContext } from '../context/AuthContextManager'
 
 export default function LoginScreen(props) {
+    const [loginData, setLoginData] = useState({
+        email: "",
+        password: ""
+    })
+
+    const { login, authUser } = useContext(AuthContext)
 
     function handleGoBackButton() {
         props.navigation.goBack()
     }
+
+
+    function onTextHandler(field, text) {
+        setLoginData(prevLoginData => {
+            return (
+                {
+                    ...prevLoginData,
+                    [field]: text
+                }
+            )
+        })
+    }
+
+    async function loginButtonHandler() {
+        const response = await axios.post('http://10.0.2.2:3000/users/login', loginData)
+        const user = response.data.user
+        const token = response.data.JWT_Token
+        if (user && token) {
+            login(user, token) // set global login state
+            console.log("login successfully!")
+        }
+    }
+
 
     return (
         <BelowStatusBarView>
@@ -15,14 +48,15 @@ export default function LoginScreen(props) {
                 <AntDesign name="left" size={35} color="#ffff" onPress={handleGoBackButton} style={styles.goBackBtn} />
                 <Text style={styles.loginText}>Login</Text>
                 <View style={styles.inputTextContainer}>
-                    <TextInput style={styles.inputText} placeholder="Email" />
-                    <TextInput style={styles.inputText} placeholder="Password" secureTextEntry={true} />
-                    <GreenButton btnTitle="Login" marginV={15} />
+                    <TextInput style={styles.inputText} placeholder="Email" onChangeText={(text) => onTextHandler('email', text)} />
+                    <TextInput style={styles.inputText} placeholder="Password" secureTextEntry={true} onChangeText={(text) => onTextHandler('password', text)} />
+                    <GreenButton btnTitle="Login" marginV={15} onPressFunction={loginButtonHandler} />
                 </View>
             </View>
         </BelowStatusBarView>
     )
 }
+
 
 
 const styles = StyleSheet.create({
