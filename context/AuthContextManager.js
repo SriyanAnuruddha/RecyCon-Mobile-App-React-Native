@@ -12,7 +12,7 @@ const AuthContext = React.createContext({
 
 
 const AuthProvider = ({ children }) => {
-    const [authUser, setAuthUser] = useState({})
+    const [authUser, setAuthUser] = useState(null)
 
     const unAuthorizedUser = {
         user_id: '',
@@ -53,20 +53,30 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         (async function () {
             try {
-                const token = await getToken()
-                const response = await axios.get('http://10.0.2.2:3000/users/validate', {
-                    headers: { "Authorization": `Bearer ${token}` }
-                })
+                const token = await getToken();
 
-                setAuthUser(response.data)
-                console.log(response.data)
+                if (token) {
+                    const response = await axios.get('http://10.0.2.2:3000/users/validate', {
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
 
+                    if (response.data) {
+                        setAuthUser(response.data);
+                    } else {
+
+                        setAuthUser(unAuthorizedUser);
+                    }
+
+                } else {
+                    setAuthUser(unAuthorizedUser);
+                }
             } catch (e) {
-                console.error("cant validate token")
+                console.error("can't validate token", e);
+                setAuthUser(unAuthorizedUser);
             }
-        })()
+        })();
+    }, []);
 
-    }, [])
 
     // Set user data when they login
     const login = (user, token) => {

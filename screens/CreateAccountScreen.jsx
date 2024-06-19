@@ -82,9 +82,11 @@ export default function CreateAccountScreen(props) {
                     const response = await axios.post("http://10.0.2.2:3000/users/register", formData)
                     if (response.status == 200) {
                         const { user, token } = response.data
-                        login(user, token)
-
-                        showAlertMessage("You have successfully registered!", "")
+                        if (user && token) {
+                            login(user, token)
+                            resetValues()
+                            showAlertMessage("You have successfully registered!", "")
+                        }
                     }
                 } catch (e) {
                     if (e.response && e.response.data) {
@@ -99,7 +101,20 @@ export default function CreateAccountScreen(props) {
 
     }
 
+    function resetValues() {
+        setFormData({
+            firstName: '',
+            lastName: '',
+            email: '',
+            accountType: '',
+            city: '',
+            country: '',
+            password: '',
+            confirmPassword: ''
+        })
 
+        setValue(null)
+    }
 
     return (
         <BelowStatusBarView >
@@ -121,13 +136,13 @@ export default function CreateAccountScreen(props) {
                         placeholder="Select account type"
                     />
                     <ScrollView contentContainerStyle={styles.scrollContainer}>
-                        <TextInput style={styles.inputText} placeholder="First Name" onChangeText={(text) => onChangeTextHandler("firstName", text)} />
-                        <TextInput style={styles.inputText} placeholder="Last Name" onChangeText={(text) => onChangeTextHandler("lastName", text)} />
-                        <TextInput style={styles.inputText} placeholder="Email" onChangeText={(text) => onChangeTextHandler("email", text)} />
-                        <TextInput style={styles.inputText} placeholder="City" onChangeText={(text) => onChangeTextHandler("city", text)} />
-                        <TextInput style={styles.inputText} placeholder="Country" onChangeText={(text) => onChangeTextHandler("country", text)} />
-                        <TextInput style={styles.inputText} placeholder="Password" onChangeText={(text) => onChangeTextHandler("password", text)} />
-                        <TextInput style={styles.inputText} placeholder="Confirm password" onChangeText={(text) => onChangeTextHandler("confirmPassword", text)} />
+                        <TextInput value={formData.firstName} style={styles.inputText} placeholder="First Name" onChangeText={(text) => onChangeTextHandler("firstName", text)} />
+                        <TextInput value={formData.lastName} style={styles.inputText} placeholder="Last Name" onChangeText={(text) => onChangeTextHandler("lastName", text)} />
+                        <TextInput value={formData.email} style={styles.inputText} placeholder="Email" onChangeText={(text) => onChangeTextHandler("email", text)} />
+                        <TextInput value={formData.city} style={styles.inputText} placeholder="City" onChangeText={(text) => onChangeTextHandler("city", text)} />
+                        <TextInput value={formData.country} style={styles.inputText} placeholder="Country" onChangeText={(text) => onChangeTextHandler("country", text)} />
+                        <TextInput value={formData.password} style={styles.inputText} placeholder="Password" onChangeText={(text) => onChangeTextHandler("password", text)} />
+                        <TextInput value={formData.confirmPassword} style={styles.inputText} placeholder="Confirm password" onChangeText={(text) => onChangeTextHandler("confirmPassword", text)} />
                         <GreenButton btnTitle="create account" width={250} marginV={15} onPressFunction={onSubmitHandler} />
                     </ScrollView>
 
