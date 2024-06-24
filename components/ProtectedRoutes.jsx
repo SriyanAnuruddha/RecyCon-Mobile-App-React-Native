@@ -11,6 +11,7 @@ import LoginScreen from '../screens/LoginScreen';
 import CreateAccountScreen from '../screens/CreateAccountScreen'
 import SellerHomeScreen from '../screens/SellerHomeScreen'
 import BuyerHomeScreen from '../screens/BuyerHomeScreen'
+import PostItemScreen from '../screens/PostItemScreen';
 
 const Stack = createNativeStackNavigator()
 
@@ -18,7 +19,7 @@ export default function ProtectedRoutes() {
     const { authUser } = useContext(AuthContext)
 
     const ScreensComponents = (authUser) => {
-        if (!authUser) {
+        if (authUser === null) {
             return (
                 <>
                     <Stack.Screen
@@ -37,10 +38,16 @@ export default function ProtectedRoutes() {
             );
         } else if (authUser.accountType == "seller") {
             return (
-                <Stack.Screen
-                    name='SellerHome'
-                    component={SellerHomeScreen}
-                />
+                <>
+                    <Stack.Screen
+                        name='SellerHome'
+                        component={SellerHomeScreen}
+                    />
+                    <Stack.Screen
+                        name='PostItemScreen'
+                        component={PostItemScreen}
+                    />
+                </>
             );
         } else if (authUser.accountType == "buyer") {
             return (

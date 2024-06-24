@@ -80,10 +80,10 @@ export default function CreateAccountScreen(props) {
             } else {
                 try {
                     const response = await axios.post("http://10.0.2.2:3000/users/register", formData)
-                    if (response.status == 200) {
-                        const { user, token } = response.data
-                        if (user && token) {
-                            login(user, token)
+                    if (response.status === 200) {
+                        const { user, JWT_Token } = response.data
+                        if (user && JWT_Token) {
+                            login(user, JWT_Token)
                             resetValues()
                             showAlertMessage("You have successfully registered!", "")
                         }

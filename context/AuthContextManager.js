@@ -64,15 +64,15 @@ const AuthProvider = ({ children }) => {
                         setAuthUser(response.data);
                     } else {
 
-                        setAuthUser(unAuthorizedUser);
+                        setAuthUser(null);
                     }
 
                 } else {
-                    setAuthUser(unAuthorizedUser);
+                    setAuthUser(null);
                 }
             } catch (e) {
-                console.error("can't validate token", e);
-                setAuthUser(unAuthorizedUser);
+                console.error("can't validate token");
+                setAuthUser(null);
             }
         })();
     }, []);

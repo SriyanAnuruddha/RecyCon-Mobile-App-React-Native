@@ -38,21 +38,28 @@ export default function LoginScreen(props) {
     }
 
     async function loginButtonHandler() {
-        try {
-            const response = await axios.post('http://10.0.2.2:3000/users/login', loginData)
-            const user = response.data.user
-            const token = response.data.JWT_Token
-            if (user && token) {
-                login(user, token) // set global login state
-                console.log("login successfully!")
-                clearValues()
-                showAlertMessage("You have successfully login!")
-            }
-        } catch (e) {
-            if (e.response.data) {
-                showAlertMessage(e.response.data.error)
-            } else {
-                showAlertMessage("cant login")
+        if (loginData.password === "") {
+            showAlertMessage("password is missing", "")
+        } else if (loginData.email === "") {
+            showAlertMessage("email is missing", "")
+        } else {
+            try {
+
+                const response = await axios.post('http://10.0.2.2:3000/users/login', loginData)
+                const user = response.data.user
+                const token = response.data.JWT_Token
+                if (user && token) {
+                    login(user, token) // set global login state
+                    console.log("login successfully!")
+                    clearValues()
+                    showAlertMessage("You have successfully login!")
+                }
+            } catch (e) {
+                if (e.response.data) {
+                    showAlertMessage(e.response.data.error)
+                } else {
+                    showAlertMessage("cant login")
+                }
             }
         }
     }
