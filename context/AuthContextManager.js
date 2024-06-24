@@ -14,14 +14,6 @@ const AuthContext = React.createContext({
 const AuthProvider = ({ children }) => {
     const [authUser, setAuthUser] = useState(null)
 
-    const unAuthorizedUser = {
-        user_id: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        accountType: ''
-    }
-
     const getToken = async () => {
         try {
             const token = await AsyncStorage.getItem('JWT_Token');
@@ -81,7 +73,8 @@ const AuthProvider = ({ children }) => {
     // Set user data when they login
     const login = (user, token) => {
         if (user && token) {
-            setAuthUser(user)
+            // const data = { ...user, token: token }
+            setAuthUser({ ...user, token: token })
             storeToken(token)
         }
     }
