@@ -34,6 +34,8 @@ export default function BottomNavBar({ navigation }) {
 
 const styles = StyleSheet.create({
     linkContainer: {
+        borderTopColor: "grey",
+        borderTopWidth: 2,
         flexDirection: "row",
         backgroundColor: "#fff",
         justifyContent: "space-around",

@@ -5,7 +5,11 @@ import itemsIcon from "../assets/images/icons/itemsIcon.png"
 import purchase from "../assets/images/icons/purchase.png"
 import messaging from "../assets/images/icons/messaging.png"
 
-export default function BuyerHomeScreen() {
+export default function BuyerHomeScreen(props) {
+
+    function itemsButtonHandler() {
+        props.navigation.navigate("ItemsScreen")
+    }
 
     return (
 
@@ -13,7 +17,7 @@ export default function BuyerHomeScreen() {
             <View style={styles.mainContainer}>
                 <View style={styles.dummyBlock}></View>
                 <View style={styles.featureIconsContainer}>
-                    <Pressable style={styles.featureIcons}>
+                    <Pressable onPress={itemsButtonHandler} style={styles.featureIcons}>
                         <Image style={styles.image} source={itemsIcon} />
                         <Text style={styles.featureIconText}>items</Text>
                     </Pressable>

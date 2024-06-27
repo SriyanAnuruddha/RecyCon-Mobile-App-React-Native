@@ -12,6 +12,8 @@ import CreateAccountScreen from '../screens/CreateAccountScreen'
 import SellerHomeScreen from '../screens/SellerHomeScreen'
 import BuyerHomeScreen from '../screens/BuyerHomeScreen'
 import PostItemScreen from '../screens/PostItemScreen';
+import ItemsScreen from '../screens/ItemsScreen';
+
 
 const Stack = createNativeStackNavigator()
 
@@ -47,14 +49,22 @@ export default function ProtectedRoutes() {
                         name='PostItemScreen'
                         component={PostItemScreen}
                     />
+
                 </>
             );
         } else if (authUser.accountType == "buyer") {
             return (
-                <Stack.Screen
-                    name='BuyerHome'
-                    component={BuyerHomeScreen}
-                />
+                <>
+                    <Stack.Screen
+                        name='BuyerHome'
+                        component={BuyerHomeScreen}
+                    />
+
+                    <Stack.Screen
+                        name='ItemsScreen'
+                        component={ItemsScreen}
+                    />
+                </>
             );
         }
     };

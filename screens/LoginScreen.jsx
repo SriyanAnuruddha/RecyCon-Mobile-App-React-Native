@@ -45,7 +45,7 @@ export default function LoginScreen(props) {
         } else {
             try {
 
-                const response = await axios.post('http://10.0.2.2:3000/users/login', loginData)
+                const response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/users/login`, loginData)
                 const user = response.data.user
                 const token = response.data.JWT_Token
                 if (user && token) {
