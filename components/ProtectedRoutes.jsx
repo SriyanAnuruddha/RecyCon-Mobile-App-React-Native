@@ -13,7 +13,7 @@ import SellerHomeScreen from '../screens/SellerHomeScreen'
 import BuyerHomeScreen from '../screens/BuyerHomeScreen'
 import PostItemScreen from '../screens/PostItemScreen';
 import ItemsScreen from '../screens/ItemsScreen';
-
+import MessageScreen from '../screens/MessageScreen';
 
 const Stack = createNativeStackNavigator()
 
@@ -49,7 +49,10 @@ export default function ProtectedRoutes() {
                         name='PostItemScreen'
                         component={PostItemScreen}
                     />
-
+                    <Stack.Screen
+                        name='MessageScreen'
+                        component={MessageScreen}
+                    />
                 </>
             );
         } else if (authUser.accountType == "buyer") {
@@ -63,6 +66,10 @@ export default function ProtectedRoutes() {
                     <Stack.Screen
                         name='ItemsScreen'
                         component={ItemsScreen}
+                    />
+                    <Stack.Screen
+                        name='MessageScreen'
+                        component={MessageScreen}
                     />
                 </>
             );

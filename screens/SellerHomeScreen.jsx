@@ -13,6 +13,10 @@ export default function SellerHomeScreen(props) {
         props.navigation.navigate('PostItemScreen')
     }
 
+    function messageButtonHandler() {
+        props.navigation.navigate("MessageScreen")
+    }
+
     return (
 
         <BelowStatusBarView>
@@ -27,7 +31,7 @@ export default function SellerHomeScreen(props) {
                         <Image style={styles.image} source={addItem} />
                         <Text style={styles.featureIconText}>post item</Text>
                     </Pressable>
-                    <Pressable style={styles.featureIcons}>
+                    <Pressable onPress={messageButtonHandler} style={styles.featureIcons}>
                         <Image style={styles.image} source={messaging} />
                         <Text style={styles.featureIconText}>messaging</Text>
                     </Pressable>

@@ -11,6 +11,10 @@ export default function BuyerHomeScreen(props) {
         props.navigation.navigate("ItemsScreen")
     }
 
+    function messageButtonHandler() {
+        props.navigation.navigate("MessageScreen")
+    }
+
     return (
 
         <BelowStatusBarView>
@@ -25,7 +29,7 @@ export default function BuyerHomeScreen(props) {
                         <Image style={styles.image} source={purchase} />
                         <Text style={styles.featureIconText}>purchase history</Text>
                     </Pressable>
-                    <Pressable style={styles.featureIcons}>
+                    <Pressable onPress={messageButtonHandler} style={styles.featureIcons}>
                         <Image style={styles.image} source={messaging} />
                         <Text style={styles.featureIconText}>messaging</Text>
                     </Pressable>
