@@ -53,7 +53,8 @@ const AuthProvider = ({ children }) => {
                     });
 
                     if (response.data) {
-                        setAuthUser(response.data);
+                        const user = response.data
+                        setAuthUser({ ...user, token });
                     } else {
 
                         setAuthUser(null);

@@ -1,7 +1,7 @@
 import BelowStatusBarView from "../components/BelowStatusBarView"
 import BottomNavBar from "../components/BottomNavBar"
 import { AntDesign } from '@expo/vector-icons';
-import { Pressable, Image, FlatList, View, StyleSheet, Text, TextInput, Button } from "react-native"
+import { Alert, Pressable, Image, FlatList, View, StyleSheet, Text, TextInput, Button } from "react-native"
 import { Picker } from '@react-native-picker/picker';
 import { useContext, useEffect, useState } from "react";
 import marketImage from "../assets/images/icons/market.png"
@@ -26,9 +26,10 @@ const Item = (props) => {
 
 
 export default function ItemsScreen() {
-    const [category, setCategory] = useState();
     const { authUser } = useContext(AuthContext)
     const [items, setItems] = useState()
+    const [category, setCategory] = useState();
+    const [itemName, setItemName] = useState()
 
     useEffect(() => {
         (async () => {
@@ -42,6 +43,31 @@ export default function ItemsScreen() {
 
     }, [])
 
+    async function getFilteredItems() {
+
+        if (!itemName && !category) {
+            Alert.alert("Please select a category or enter a item name")
+        } else {
+            try {
+                const response = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/buyers/filtered-items`, {
+                    headers: {
+                        "Authorization": `Bearer ${authUser.token}`
+                    },
+                    params: {
+                        category: category ? category : "",
+                        itemName: itemName ? itemName : ""
+                    }
+                })
+                setItems(response.data)
+            } catch (e) {
+                console.error(e)
+            }
+        }
+
+
+
+    }
+
     return (
         <BelowStatusBarView>
             <View style={styles.mainContainer}>
@@ -53,13 +79,21 @@ export default function ItemsScreen() {
                             onValueChange={(itemValue, itemIndex) =>
                                 setCategory(itemValue)
                             }>
-                            <Picker.Item label="kg" value="kg" />
-                            <Picker.Item label="liter" value="liter" />
-                            <Picker.Item label="units" value="units" />
+                            <Picker.Item label="Electronics" value="Electronics" />
+                            <Picker.Item label="E-Waste" value="E-Waste" />
+                            <Picker.Item label="Glass" value="Glass" />
+                            <Picker.Item label="Hazardous Materials" value="Hazardous Materials" />
+                            <Picker.Item label="Metals" value="Metals" />
+                            <Picker.Item label="Miscellaneous" value="Miscellaneous" />
+                            <Picker.Item label="Organic Waste" value="Organic Waste" />
+                            <Picker.Item label="Paper" value="Paper" />
+                            <Picker.Item label="Plastics Waste" value="Plastics" />
+                            <Picker.Item label="Textiles" value="Textiles" />
+                            <Picker.Item label="Wood" value="Wood" />
                         </Picker>
                     </View>
-                    <TextInput style={styles.searchBoxInput} onSubmitEditing={() => console.log("clicked!")} />
-                    <AntDesign style={styles.searchIcon} name="search1" size={26} color="black" />
+                    <TextInput style={styles.searchBoxInput} onChangeText={text => setItemName(text)} />
+                    <AntDesign onPress={getFilteredItems} style={styles.searchIcon} name="search1" size={26} color="black" />
                 </View>
                 <FlatList
                     data={items}
