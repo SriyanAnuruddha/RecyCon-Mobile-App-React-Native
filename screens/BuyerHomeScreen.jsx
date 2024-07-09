@@ -4,6 +4,7 @@ import BottomNavBar from "../components/BottomNavBar";
 import itemsIcon from "../assets/images/icons/itemsIcon.png"
 import purchase from "../assets/images/icons/purchase.png"
 import messaging from "../assets/images/icons/messaging.png"
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function BuyerHomeScreen(props) {
 
@@ -34,7 +35,8 @@ export default function BuyerHomeScreen(props) {
                         <Text style={styles.featureIconText}>messaging</Text>
                     </Pressable>
                     <Pressable style={styles.featureIcons}>
-                        <Text style={styles.featureIconText}>items</Text>
+                        <FontAwesome style={styles.icon} name="user-circle-o" size={60} color="black" />
+                        <Text style={styles.featureIconText}>profile</Text>
                     </Pressable>
                 </View>
 

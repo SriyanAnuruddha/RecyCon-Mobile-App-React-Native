@@ -19,10 +19,6 @@ export default function BottomNavBar({ navigation }) {
                 <FontAwesome style={styles.icon} name="home" size={25} color="black" />
                 <Text>Home</Text>
             </Pressable>
-            <Pressable>
-                <FontAwesome style={styles.icon} name="user-circle-o" size={25} color="black" />
-                <Text>profile</Text>
-            </Pressable>
             <Pressable onPress={() => logout()}>
                 <MaterialCommunityIcons style={styles.icon} name="logout" size={25} color="black" />
                 <Text>logout</Text>
