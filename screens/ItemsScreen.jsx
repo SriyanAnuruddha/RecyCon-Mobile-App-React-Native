@@ -7,10 +7,12 @@ import { useContext, useEffect, useState } from "react";
 import marketImage from "../assets/images/icons/market.png"
 import axios from "axios";
 import { AuthContext } from "../context/AuthContextManager";
+import { useNavigation } from '@react-navigation/native';
 
 const Item = (props) => {
+    const navigation = useNavigation();
     return (
-        <Pressable style={styles.itemContainer}>
+        <Pressable onPress={() => onPressItemHandler(navigation, props.itemID)} style={styles.itemContainer}>
             <Image style={styles.itemImage} source={{ uri: `data:image/jpeg;base64,${props.itemImage}` }} />
             <View style={styles.itemTextContainer}>
                 <Text style={styles.productNameText}>{props.name}</Text>
@@ -24,6 +26,9 @@ const Item = (props) => {
     )
 }
 
+function onPressItemHandler(navigation, itemID) {
+    navigation.navigate("SingleItemScreen", { itemID: itemID })
+}
 
 export default function ItemsScreen() {
     const { authUser } = useContext(AuthContext)
@@ -104,6 +109,7 @@ export default function ItemsScreen() {
                             quantity={item.quantity_details.quantity}
                             metric={item.quantity_details.metric}
                             itemImage={item.image_file_name}
+                            itemID={item._id}
                         />
                     )}
                     keyExtractor={item => item._id}
