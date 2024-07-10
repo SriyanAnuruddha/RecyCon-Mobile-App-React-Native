@@ -76,15 +76,16 @@ export default function PostItemScreen(props) {
                 },
             });
             if (response.status === 200) {
+                // set default values
                 setFormData({
                     name: "",
                     description: "",
                     category: "Electronics",
-                    metric: "kg",
+                    metric: "Kilograms (kg)",
                     quantity: 0,
                     price: 0
                 })
-                console.log("item added  successfully");
+                console.log("item added successfully");
             }
         } catch (err) {
             console.error("Error response:", err.response.data);
@@ -138,8 +139,16 @@ export default function PostItemScreen(props) {
                                 onValueChange={(itemValue, itemIndex) =>
                                     textChangeHandler('metric', itemValue)
                                 }>
-                                <Picker.Item label="kg" value="kg" />
-                                <Picker.Item label="liter" value="liter" />
+                                <Picker.Item label="Kilograms (kg)" value="Kilograms (kg)" />
+                                <Picker.Item label="Grams (g)" value="Grams (g)" />
+                                <Picker.Item label="Pounds (lbs)" value="Pounds (lbs)" />
+                                <Picker.Item label="Ounces (oz)" value="Ounces (oz)" />
+                                <Picker.Item label="Kilometers (km)" value="Kilometers (km)" />
+                                <Picker.Item label="Meters (m)" value="Meters (m)" />
+                                <Picker.Item label="Inches (in)" value="Inches (in)" />
+                                <Picker.Item label="centimeters (cm)" value="centimeters (cm)" />
+                                <Picker.Item label="Liters (L)" value="Liters (L)" />
+                                <Picker.Item label="Milliliters (mL)" value="Milliliters (mL)" />
                                 <Picker.Item label="units" value="units" />
                             </Picker>
                         </View>
