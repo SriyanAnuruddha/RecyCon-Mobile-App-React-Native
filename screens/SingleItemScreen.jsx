@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View, ActivityIndicator, Pressable } from "react-native"
+import { Alert, Image, StyleSheet, Text, View, ActivityIndicator, Pressable } from "react-native"
 import BelowStatusBarView from "../components/BelowStatusBarView"
 import { useContext, useEffect, useState } from "react"
 import axios from "axios"
@@ -29,6 +29,34 @@ export default function SingleItemScreen(props) {
     function handleGoBackButton() {
         props.navigation.goBack()
     }
+
+    async function handleRequestTransactionButton() {
+        const transactionData = {
+            sellerID: itemObj.seller_id,
+            buyerID: authUser.user_id,
+            itemID: itemObj._id,
+            requested_quantity: customQty,
+            amount: totalAmount
+        };
+
+        if (totalAmount !== 0 && customQty !== 0) {
+            try {
+                const response = await axios.post(`${baseUrl}/buyers/new-transaction`, transactionData, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                });
+
+                Alert.alert("The transaction was requested successfully!")
+            } catch (e) {
+                Alert.alert("Unable to request the transaction now!")
+            }
+        } else {
+            Alert.alert("please select a quantity")
+        }
+    }
+
 
 
     useEffect(() => {
@@ -86,7 +114,7 @@ export default function SingleItemScreen(props) {
                                     <Image style={styles.messageImage} source={messaging} />
                                     <Text style={styles.messageSellerText}>Message Seller</Text>
                                 </Pressable>
-                                <Pressable style={styles.transactionButton}>
+                                <Pressable onPress={handleRequestTransactionButton} style={styles.transactionButton}>
                                     <MaterialIcons name="currency-exchange" size={50} color="black" />
                                     <Text style={styles.messageSellerText}>Request transaction</Text>
                                 </Pressable>
