@@ -68,9 +68,6 @@ export default function ItemsScreen() {
                 console.error(e)
             }
         }
-
-
-
     }
 
     return (
@@ -101,6 +98,7 @@ export default function ItemsScreen() {
                     <AntDesign onPress={getFilteredItems} style={styles.searchIcon} name="search1" size={26} color="black" />
                 </View>
                 <FlatList
+                    showsVerticalScrollIndicator={false}
                     data={items}
                     renderItem={({ item }) => (
                         <Item

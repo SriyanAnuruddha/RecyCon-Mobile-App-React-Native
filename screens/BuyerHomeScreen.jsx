@@ -16,6 +16,11 @@ export default function BuyerHomeScreen(props) {
         props.navigation.navigate("MessageScreen")
     }
 
+    function myOrderButtonHandler() {
+        props.navigation.navigate("MyOrdersScreen")
+
+    }
+
     return (
 
         <BelowStatusBarView>
@@ -24,19 +29,19 @@ export default function BuyerHomeScreen(props) {
                 <View style={styles.featureIconsContainer}>
                     <Pressable onPress={itemsButtonHandler} style={styles.featureIcons}>
                         <Image style={styles.image} source={itemsIcon} />
-                        <Text style={styles.featureIconText}>items</Text>
+                        <Text style={styles.featureIconText}>Items</Text>
                     </Pressable>
-                    <Pressable style={styles.featureIcons}>
+                    <Pressable onPress={myOrderButtonHandler} style={styles.featureIcons}>
                         <Image style={styles.image} source={purchase} />
-                        <Text style={styles.featureIconText}>purchase history</Text>
+                        <Text style={styles.featureIconText}>My Orders</Text>
                     </Pressable>
                     <Pressable onPress={messageButtonHandler} style={styles.featureIcons}>
                         <Image style={styles.image} source={messaging} />
-                        <Text style={styles.featureIconText}>messaging</Text>
+                        <Text style={styles.featureIconText}>Messaging</Text>
                     </Pressable>
                     <Pressable style={styles.featureIcons}>
                         <FontAwesome style={styles.icon} name="user-circle-o" size={60} color="black" />
-                        <Text style={styles.featureIconText}>profile</Text>
+                        <Text style={styles.featureIconText}>Profile</Text>
                     </Pressable>
                 </View>
 
