@@ -1,16 +1,16 @@
-import React, { useEffect, useContext, useState } from "react";
-import { View, Text, StyleSheet, ActivityIndicator, FlatList } from "react-native";
+import BelowStatusBarView from "../components/BelowStatusBarView";
+import BottomNavBar from "../components/BottomNavBar";
+import { View, StyleSheet, Text, FlatList, ActivityIndicator } from "react-native";
 import { AuthContext } from "../context/AuthContextManager";
 import axios from "axios";
 import AntDesign from '@expo/vector-icons/AntDesign';
-import Transaction from "../components/Transaction";
-import BelowStatusBarView from "../components/BelowStatusBarView";
-import BottomNavBar from "../components/BottomNavBar";
+import { useContext, useEffect, useState } from "react";
+import TransactionRequest from "../components/TransactionRequest";
 
-export default function MyOrders(props) {
+export default function OrderManagementScreen(props) {
     const baseUrl = process.env.EXPO_PUBLIC_API_URL;
-    const { authUser } = useContext(AuthContext);
-    const [transactions, setTransactions] = useState(null);
+    const { authUser } = useContext(AuthContext)
+    const [transactions, setTransactions] = useState(null)
     const [refresh, setRefresh] = useState(false)
 
     function handleGoBackButton() {
@@ -20,10 +20,10 @@ export default function MyOrders(props) {
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.get(`${baseUrl}/buyers/get-all-transactions`,
+                const response = await axios.get(`${baseUrl}/sellers/get-all-transactions`,
                     {
                         params: {
-                            buyerID: authUser.user_id
+                            sellerID: authUser.user_id
                         },
                         headers: {
                             'Authorization': `Bearer ${authUser.token}`,
@@ -35,8 +35,8 @@ export default function MyOrders(props) {
             } catch (e) {
                 console.log("Network problem: check if the internet is working!");
             }
-        })();
-    }, [refresh]);
+        })()
+    }, [refresh])
 
     function refreshList() {
         setRefresh(refresh => !refresh)
@@ -44,17 +44,16 @@ export default function MyOrders(props) {
 
     return (
         <BelowStatusBarView>
-            <View style={styles.mainContainer}>
+            <View style={styles.main_container}>
                 <AntDesign onPress={handleGoBackButton} style={styles.goBackButton} name="arrowleft" size={33} color="black" />
-                <Text style={styles.headerText}>My Orders</Text>
-
+                <Text style={styles.headerText}>Order Management</Text>
                 {transactions == null ?
                     <ActivityIndicator size="large" color="#00ff00" /> :
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={transactions}
                         renderItem={({ item }) => (
-                            <Transaction
+                            <TransactionRequest
                                 item_name={item.item_name}
                                 quantity={item.quantity}
                                 amount={item.amount}
@@ -71,17 +70,16 @@ export default function MyOrders(props) {
             </View>
             <BottomNavBar />
         </BelowStatusBarView>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
-    mainContainer: {
+    main_container: {
         flex: 1,
         backgroundColor: "#009E60",
         paddingHorizontal: 20,
         alignItems: "center"
-    },
-    goBackButton: {
+    }, goBackButton: {
         marginTop: 10,
         marginLeft: 20,
         position: 'absolute',
@@ -92,4 +90,4 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: "600"
     }
-});
+})

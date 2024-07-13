@@ -16,6 +16,7 @@ import ItemsScreen from '../screens/ItemsScreen';
 import MessageScreen from '../screens/MessageScreen';
 import SingleItemScreen from '../screens/SingleItemScreen'
 import MyOrdersScreen from '../screens/MyOrdersScreen';
+import OrderManagementScreen from '../screens/OrderManagementScreen';
 
 const Stack = createNativeStackNavigator()
 
@@ -54,6 +55,10 @@ export default function ProtectedRoutes() {
                     <Stack.Screen
                         name='MessageScreen'
                         component={MessageScreen}
+                    />
+                    <Stack.Screen
+                        name='OrderManagementScreen'
+                        component={OrderManagementScreen}
                     />
                 </>
             );

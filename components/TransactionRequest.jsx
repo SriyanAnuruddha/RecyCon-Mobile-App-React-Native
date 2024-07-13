@@ -5,8 +5,9 @@ import messaging from "../assets/images/icons/messaging.png";
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContextManager';
 import axios from 'axios';
+import { AntDesign } from '@expo/vector-icons';
 
-const Transaction = (props) => {
+const TransactionRequest = (props) => {
     const date = new Date(props.created_date);
     const year = String(date.getFullYear()).slice(-2); // Get last two digits of the year
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based in JS
@@ -18,14 +19,14 @@ const Transaction = (props) => {
 
     const showAlert = (transactionID, refreshList) =>
         Alert.alert(
-            "Are you sure you want to cancel the order?", "",
+            "Are you sure you want to Reject this request?", "",
             [
                 {
                     text: 'Yes',
                     onPress: () => {
                         cancelOrder(transactionID)
                         refreshList()
-                        Alert.alert('Order is Canceled!')
+                        Alert.alert('Order request is rejected!')
                     },
                     style: 'cancel',
                 },
@@ -38,7 +39,7 @@ const Transaction = (props) => {
 
     const cancelOrder = async (transactionID) => {
         try {
-            axios.delete(`${baseUrl}/buyers/cancel-order`, {
+            axios.delete(`${baseUrl}/sellers/reject-order-request`, {
                 params: {
                     transactionID: transactionID
                 },
@@ -78,13 +79,18 @@ const Transaction = (props) => {
             <View style={styles.buttonsContainer}>
                 <Pressable style={styles.messageContainer}>
                     <Image style={styles.messageImage} source={messaging} />
-                    <Text style={styles.messageSellerText}>Message Seller</Text>
+                    <Text style={styles.messageSellerText}>Message Buyer</Text>
                 </Pressable >
                 {
-                    props.status === "pending" && (<Pressable onPress={() => showAlert(props.transactionID, props.refreshList)} style={styles.cancelButton}>
-                        <MaterialIcons name="cancel" size={30} color="black" />
-                        <Text style={styles.messageSellerText}>Cancel Order</Text>
-                    </Pressable>)
+                    props.status === "pending" && (<>
+                        <Pressable style={styles.acceptButton}>
+                            <AntDesign name="checkcircle" size={25} color="black" />
+                            <Text style={styles.messageSellerText}>Accept Request</Text>
+                        </Pressable>
+                        <Pressable onPress={() => showAlert(props.transactionID, props.refreshList)} style={styles.cancelButton}>
+                            <MaterialIcons name="cancel" size={30} color="black" />
+                            <Text style={styles.messageSellerText}>Reject Request</Text>
+                        </Pressable></>)
                 }
             </View>
         </View>
@@ -111,7 +117,7 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "space-evenly",
         marginTop: 10
     },
     messageContainer: {
@@ -129,7 +135,16 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         padding: 5,
-        borderRadius: 10
+        borderRadius: 10,
+        marginLeft: 10
+    },
+    acceptButton: {
+        backgroundColor: "#008000",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 5,
+        borderRadius: 10,
+        marginLeft: 10
     },
     messageImage: {
         width: 30,
@@ -148,4 +163,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Transaction;
+export default TransactionRequest;

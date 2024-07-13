@@ -18,6 +18,10 @@ export default function SellerHomeScreen(props) {
         props.navigation.navigate("MessageScreen")
     }
 
+    function manageOrdersButtonHandler() {
+        props.navigation.navigate("OrderManagementScreen")
+    }
+
     return (
 
         <BelowStatusBarView>
@@ -36,9 +40,9 @@ export default function SellerHomeScreen(props) {
                         <Image style={styles.image} source={messaging} />
                         <Text style={styles.featureIconText}>messaging</Text>
                     </Pressable>
-                    <Pressable style={styles.featureIcons}>
+                    <Pressable onPress={manageOrdersButtonHandler} style={styles.featureIcons}>
                         <Image style={styles.image} source={transaction_history} />
-                        <Text style={styles.featureIconText}>transactions</Text>
+                        <Text style={styles.featureIconText}>Manage Orders</Text>
                     </Pressable>
                     <Pressable style={styles.featureIcons}>
                         <Image style={styles.image} source={current} />
