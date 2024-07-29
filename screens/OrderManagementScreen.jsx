@@ -68,7 +68,7 @@ export default function OrderManagementScreen(props) {
                     />
                 }
             </View>
-            <BottomNavBar />
+            <BottomNavBar navigation={props.navigation} />
         </BelowStatusBarView>
     )
 }

@@ -4,6 +4,7 @@ import BottomNavBar from "../components/BottomNavBar";
 import itemsIcon from "../assets/images/icons/itemsIcon.png"
 import purchase from "../assets/images/icons/purchase.png"
 import messaging from "../assets/images/icons/messaging.png"
+import exchange_banner_img from "../assets/exchange_banner.jpg"
 import { FontAwesome } from '@expo/vector-icons';
 
 export default function BuyerHomeScreen(props) {
@@ -25,7 +26,7 @@ export default function BuyerHomeScreen(props) {
 
         <BelowStatusBarView>
             <View style={styles.mainContainer}>
-                <View style={styles.dummyBlock}></View>
+                <Image source={exchange_banner_img} style={styles.banner_image} />
                 <View style={styles.featureIconsContainer}>
                     <Pressable onPress={itemsButtonHandler} style={styles.featureIcons}>
                         <Image style={styles.image} source={itemsIcon} />
@@ -63,12 +64,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap",
     },
-    dummyBlock: {
-        margin: 20,
-        borderColor: "black",
-        borderWidth: 2,
-        height: 150
-    },
     featureIcons: {
         alignItems: "center",
         justifyContent: "center",
@@ -85,6 +80,12 @@ const styles = StyleSheet.create({
     image: {
         width: 60,
         height: 60
+    },
+    banner_image: {
+        alignSelf: "center",
+        height: 200,
+        width: 300,
+        margin: 30
     }
 
 })

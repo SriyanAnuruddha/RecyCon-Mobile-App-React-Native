@@ -7,6 +7,7 @@ import messaging from "../assets/images/icons/messaging.png"
 import market from "../assets/images/icons/market.png"
 import transaction_history from "../assets/images/icons/purchase.png"
 import { FontAwesome } from '@expo/vector-icons';
+import exchange_banner_img from "../assets/exchange_banner.jpg"
 
 export default function SellerHomeScreen(props) {
 
@@ -26,7 +27,7 @@ export default function SellerHomeScreen(props) {
 
         <BelowStatusBarView>
             <View style={styles.mainContainer}>
-                <View style={styles.dummyBlock}></View>
+                <Image source={exchange_banner_img} style={styles.banner_image} />
                 <View style={styles.featureIconsContainer}>
                     <Pressable style={styles.featureIcons}>
                         <Image style={styles.image} source={market} />
@@ -72,12 +73,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap",
     },
-    dummyBlock: {
-        margin: 20,
-        borderColor: "black",
-        borderWidth: 2,
-        height: 150
-    },
     featureIcons: {
         alignItems: "center",
         justifyContent: "center",
@@ -85,7 +80,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: 120,
         height: 120,
-        margin: 20,
+        margin: 13,
         padding: 10
     },
     featureIconText: {
@@ -95,6 +90,13 @@ const styles = StyleSheet.create({
     image: {
         width: 60,
         height: 60,
+    },
+    banner_image: {
+        alignSelf: "center",
+        height: 200,
+        width: 300,
+        margin: 20
     }
+
 
 })

@@ -159,7 +159,7 @@ export default function PostItemScreen(props) {
                     </View>
                 </View>
             </View>
-            <BottomNavBar />
+            <BottomNavBar navigation={props.navigation} />
         </BelowStatusBarView>
     )
 }

@@ -100,7 +100,7 @@ const TransactionRequest = (props) => {
 const styles = StyleSheet.create({
     mainItemContainer: {
         backgroundColor: "#fff",
-        marginVertical: 15,
+        margin: 10,
         borderRadius: 10,
         padding: 15,
     },
@@ -128,7 +128,8 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     messageSellerText: {
-        fontSize: 15
+        fontSize: 13,
+        fontWeight: "600"
     },
     cancelButton: {
         backgroundColor: "#FF2400",

@@ -6,8 +6,16 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
-export default function BottomNavBar({ navigation }) {
-    const { logout } = useContext(AuthContext)
+export default function BottomNavBar(props) {
+    const { logout, authUser } = useContext(AuthContext)
+
+    function HomeButtonPressHandler(navigation) {
+        if (authUser.accountType === "seller") {
+            props.navigation.navigate("SellerHome")
+        } else if (authUser.accountType === "buyer") {
+            props.navigation.navigate("SellerHome")
+        }
+    }
 
     return (
         <View style={styles.linkContainer}>
@@ -15,7 +23,7 @@ export default function BottomNavBar({ navigation }) {
                 <Ionicons style={styles.icon} name="notifications" size={25} color="black" />
                 <Text>notifications</Text>
             </Pressable>
-            <Pressable>
+            <Pressable onPress={HomeButtonPressHandler}>
                 <FontAwesome style={styles.icon} name="home" size={25} color="black" />
                 <Text>Home</Text>
             </Pressable>
