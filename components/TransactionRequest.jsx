@@ -52,6 +52,10 @@ const TransactionRequest = (props) => {
         }
     }
 
+    function handleMessageSellerButton(receiverId, receiverName) {
+        props.navigation.navigate('MessageScreen', { receiverId, receiverName })
+    }
+
     return (
         <View style={styles.mainItemContainer}>
             <View style={styles.item}>
@@ -74,10 +78,14 @@ const TransactionRequest = (props) => {
                         <Text style={styles.transaction_properties}>Date: </Text>
                         <Text style={styles.transaction_details}>{formattedDate}</Text>
                     </Text>
+                    <Text>
+                        <Text style={styles.transaction_properties}>Buyer Name: </Text>
+                        <Text style={styles.transaction_details}>{props.buyerName}</Text>
+                    </Text>
                 </View>
             </View>
             <View style={styles.buttonsContainer}>
-                <Pressable style={styles.messageContainer}>
+                <Pressable onPress={() => handleMessageSellerButton(props.buyerID, props.buyerName)} style={styles.messageContainer}>
                     <Image style={styles.messageImage} source={messaging} />
                     <Text style={styles.messageSellerText}>Message Buyer</Text>
                 </Pressable >

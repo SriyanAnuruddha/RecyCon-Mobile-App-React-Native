@@ -30,11 +30,17 @@ export default function SingleItemScreen(props) {
         props.navigation.goBack()
     }
 
+
+    function handleMessageSellerButton(receiverId, receiverName) {
+        props.navigation.navigate('MessageScreen', { receiverId, receiverName })
+    }
+
     async function handleRequestTransactionButton() {
         const transactionData = {
             sellerID: itemObj.seller_id,
             buyerID: authUser.user_id,
             itemID: itemObj._id,
+            sellerName: itemObj.sellerName,
             requested_quantity: customQty,
             amount: totalAmount
         };
@@ -93,6 +99,7 @@ export default function SingleItemScreen(props) {
                                     <Text style={styles.itemDetailsText}>{itemObj.description}</Text>
                                     <Text style={styles.itemDetailsText}>price of a unit: {itemObj.price}</Text>
                                     <Text style={styles.itemDetailsText}>availability: {itemObj.quantity_details.quantity} {itemObj.quantity_details.metric}</Text>
+                                    <Text style={styles.itemDetailsText}>Seller Name: {itemObj.sellerName}</Text>
                                 </View>
                             </View>
 
@@ -110,7 +117,7 @@ export default function SingleItemScreen(props) {
                             </View>
 
                             <View style={styles.decisionsContainer}>
-                                <Pressable style={styles.messageContainer}>
+                                <Pressable onPress={() => handleMessageSellerButton(itemObj.seller_id, itemObj.sellerName)} style={styles.messageContainer}>
                                     <Image style={styles.messageImage} source={messaging} />
                                     <Text style={styles.messageSellerText}>Message Seller</Text>
                                 </Pressable>
@@ -143,7 +150,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 15,
         alignItems: "center",
-        marginTop: 20,
+        marginTop: 15,
     },
     itemImage: {
         height: 200,
@@ -164,7 +171,7 @@ const styles = StyleSheet.create({
         padding: 15,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 20,
+        marginTop: 15,
 
     },
     circle: {
@@ -190,7 +197,7 @@ const styles = StyleSheet.create({
     },
     decisionsContainer: {
         backgroundColor: "#fff",
-        marginTop: 20,
+        marginTop: 10,
         borderRadius: 10,
         padding: 15,
         flexDirection: "row",

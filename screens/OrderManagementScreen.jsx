@@ -17,6 +17,8 @@ export default function OrderManagementScreen(props) {
         props.navigation.goBack();
     }
 
+
+
     useEffect(() => {
         (async () => {
             try {
@@ -60,8 +62,11 @@ export default function OrderManagementScreen(props) {
                                 status={item.status}
                                 created_date={item.created_date}
                                 itemImage={item.image}
+                                buyerName={item.buyerName}
+                                buyerID={item.buyerID}
                                 transactionID={item.transactionID}
                                 refreshList={refreshList}
+                                navigation={props.navigation}
                             />
                         )}
                         keyExtractor={item => item.transactionID}
