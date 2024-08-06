@@ -9,7 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 export default function BottomNavBar(props) {
     const { logout, authUser } = useContext(AuthContext)
 
-    function HomeButtonPressHandler(navigation) {
+    function HomeButtonPressHandler() {
         if (authUser.accountType === "seller") {
             props.navigation.navigate("SellerHome")
         } else if (authUser.accountType === "buyer") {

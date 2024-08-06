@@ -17,6 +17,7 @@ import MessageScreen from '../screens/MessageScreen';
 import SingleItemScreen from '../screens/SingleItemScreen'
 import MyOrdersScreen from '../screens/MyOrdersScreen';
 import OrderManagementScreen from '../screens/OrderManagementScreen';
+import ChatListScreen from '../screens/ChatListScreen';
 
 const Stack = createNativeStackNavigator()
 
@@ -60,6 +61,10 @@ export default function ProtectedRoutes() {
                         name='OrderManagementScreen'
                         component={OrderManagementScreen}
                     />
+                    <Stack.Screen
+                        name='ChatListScreen'
+                        component={ChatListScreen}
+                    />
                 </>
             );
         } else if (authUser.accountType == "buyer") {
@@ -85,6 +90,10 @@ export default function ProtectedRoutes() {
                     <Stack.Screen
                         name='MyOrdersScreen'
                         component={MyOrdersScreen}
+                    />
+                    <Stack.Screen
+                        name='ChatListScreen'
+                        component={ChatListScreen}
                     />
                 </>
             );

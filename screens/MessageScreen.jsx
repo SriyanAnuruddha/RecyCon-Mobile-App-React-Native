@@ -99,6 +99,7 @@ export default function MessageScreen(props) {
                             <FontAwesome name="user-circle-o" size={30} color="black" />
                             <Text style={styles.receiverHeaderName}>{receiverName}</Text>
                         </View>
+                        <View></View>
                     </View>
                     <View style={styles.messages}>
                         <FlatList
@@ -157,6 +158,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingHorizontal: 10,
         paddingVertical: 20,
+        justifyContent: "space-between"
     },
     receiverContainer: {
         flexDirection: "row",
