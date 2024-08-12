@@ -18,6 +18,8 @@ import SingleItemScreen from '../screens/SingleItemScreen'
 import MyOrdersScreen from '../screens/MyOrdersScreen';
 import OrderManagementScreen from '../screens/OrderManagementScreen';
 import ChatListScreen from '../screens/ChatListScreen';
+import CurrentListingsScreen from '../screens/CurrentListingScreen';
+import EditItemDetailsScreen from '../screens/EditItemDetailsScreen';
 
 const Stack = createNativeStackNavigator()
 
@@ -64,6 +66,14 @@ export default function ProtectedRoutes() {
                     <Stack.Screen
                         name='ChatListScreen'
                         component={ChatListScreen}
+                    />
+                    <Stack.Screen
+                        name='CurrentListingsScreen'
+                        component={CurrentListingsScreen}
+                    />
+                    <Stack.Screen
+                        name='EditItemDetailsScreen'
+                        component={EditItemDetailsScreen}
                     />
                 </>
             );

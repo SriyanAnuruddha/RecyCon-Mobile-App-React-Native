@@ -78,7 +78,7 @@ export default function ChatList(props) {
                                 lastMessage={item.lastMessage.content}
                             />
                         )}
-                        keyExtractor={item => item._id}
+                        keyExtractor={item => item.otherPartyId}
                     />
                 </View>
             </View>

@@ -23,6 +23,10 @@ export default function SellerHomeScreen(props) {
         props.navigation.navigate("OrderManagementScreen")
     }
 
+    function currentListingsButtonHandler() {
+        props.navigation.navigate("CurrentListingsScreen")
+    }
+
     return (
 
         <BelowStatusBarView>
@@ -45,7 +49,7 @@ export default function SellerHomeScreen(props) {
                         <Image style={styles.image} source={transaction_history} />
                         <Text style={styles.featureIconText}>Manage Orders</Text>
                     </Pressable>
-                    <Pressable style={styles.featureIcons}>
+                    <Pressable onPress={currentListingsButtonHandler} style={styles.featureIcons}>
                         <Image style={styles.image} source={current} />
                         <Text style={styles.featureIconText}>current listings</Text>
                     </Pressable>

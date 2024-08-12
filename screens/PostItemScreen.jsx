@@ -52,7 +52,7 @@ export default function PostItemScreen(props) {
     }
 
     const onSubmitHandler = async () => {
-        const url = "http://10.0.2.2:3000/sellers/addItems";
+        const url = `${baseUrl}/sellers/addItems`;
 
         const form = new FormData();
         form.append('name', formData.name);

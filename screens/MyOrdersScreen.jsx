@@ -17,6 +17,7 @@ export default function MyOrders(props) {
         props.navigation.goBack();
     }
 
+
     useEffect(() => {
         (async () => {
             try {
@@ -57,12 +58,15 @@ export default function MyOrders(props) {
                             <Transaction
                                 item_name={item.item_name}
                                 quantity={item.quantity}
+                                sellerName={item.sellerName}
+                                sellerID={item.sellerID}
                                 amount={item.amount}
                                 status={item.status}
                                 created_date={item.created_date}
                                 itemImage={item.image}
                                 transactionID={item.transactionID}
                                 refreshList={refreshList}
+                                navigation={props.navigation}
                             />
                         )}
                         keyExtractor={item => item.transactionID}

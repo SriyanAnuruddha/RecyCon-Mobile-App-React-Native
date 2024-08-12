@@ -14,7 +14,7 @@ export default function BuyerHomeScreen(props) {
     }
 
     function messageButtonHandler() {
-        props.navigation.navigate("MessageScreen")
+        props.navigation.navigate("ChatListScreen")
     }
 
     function myOrderButtonHandler() {
