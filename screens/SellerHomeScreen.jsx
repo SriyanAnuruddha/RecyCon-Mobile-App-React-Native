@@ -27,13 +27,18 @@ export default function SellerHomeScreen(props) {
         props.navigation.navigate("CurrentListingsScreen")
     }
 
+
+    function currentPricesButtonHandler() {
+        props.navigation.navigate("CurrentPricesScreen")
+    }
+
     return (
 
         <BelowStatusBarView>
             <View style={styles.mainContainer}>
                 <Image source={exchange_banner_img} style={styles.banner_image} />
                 <View style={styles.featureIconsContainer}>
-                    <Pressable style={styles.featureIcons}>
+                    <Pressable onPress={currentPricesButtonHandler} style={styles.featureIcons}>
                         <Image style={styles.image} source={market} />
                         <Text style={styles.featureIconText}>current market prices</Text>
                     </Pressable>

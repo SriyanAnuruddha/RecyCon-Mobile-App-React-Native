@@ -56,6 +56,24 @@ const TransactionRequest = (props) => {
         props.navigation.navigate('MessageScreen', { receiverId, receiverName })
     }
 
+    async function acceptOrderRequest(transactionID, refreshList) {
+        try {
+            await axios.put(`${baseUrl}/sellers/accept-order-request`, {}, {
+                params: {
+                    transactionID: transactionID
+                },
+                headers: {
+                    'Authorization': `Bearer ${authUser.token}`,
+                }
+            });
+
+            Alert.alert("Order request accepted successfully!");
+            refreshList();
+        } catch (e) {
+            Alert.alert("Can't accept order request right now!");
+            console.error(e);
+        }
+    }
     return (
         <View style={styles.mainItemContainer}>
             <View style={styles.item}>
@@ -91,7 +109,7 @@ const TransactionRequest = (props) => {
                 </Pressable >
                 {
                     props.status === "pending" && (<>
-                        <Pressable style={styles.acceptButton}>
+                        <Pressable onPress={() => acceptOrderRequest(props.transactionID, props.refreshList)} style={styles.acceptButton}>
                             <AntDesign name="checkcircle" size={25} color="black" />
                             <Text style={styles.messageSellerText}>Accept Request</Text>
                         </Pressable>
