@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import { Button, Text, TextInput, StyleSheet, View, FlatList } from 'react-native';
+import { Button, Text, TextInput, StyleSheet, View, FlatList, Alert, Pressable } from 'react-native';
 import io from 'socket.io-client';
 import axios from 'axios';
 import { AntDesign } from '@expo/vector-icons';
@@ -7,6 +7,9 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import BelowStatusBarView from '../components/BelowStatusBarView';
 import { AuthContext } from "../context/AuthContextManager";
 import Message from "../components/Message";
+import * as Location from 'expo-location';
+import Entypo from '@expo/vector-icons/Entypo';
+import { Platform, Linking } from 'react-native';
 
 export default function MessageScreen(props) {
     const { authUser } = useContext(AuthContext);
@@ -17,6 +20,8 @@ export default function MessageScreen(props) {
     const baseUrl = process.env.EXPO_PUBLIC_API_URL;
     const receiverId = props.route.params.receiverId;
     const receiverName = props.route.params.receiverName;
+    const [currentLocation, setCurrentLocation] = useState(null)
+
 
     useEffect(() => {
         const initSocket = () => {
@@ -89,6 +94,42 @@ export default function MessageScreen(props) {
         }
     };
 
+    const sendLocation = (location) => {
+        if (socket && location) {
+            socket.emit('sendMessage', { receiverId, content: "location_share_message", location: location });
+            fetchChatHistory()
+        }
+    };
+
+
+    async function handleShareLocation() {
+        try {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                Alert.alert('Permission to access location was denied');
+                console.log('Permission to access location was denied');
+                return;
+            }
+
+            let location = await Location.getCurrentPositionAsync({});
+            setCurrentLocation(location);
+            if (!location) {
+                Alert.alert('Unable to obtain location');
+                return;
+            }
+
+            if (currentLocation) {
+
+                const { latitude, longitude } = currentLocation.coords
+                sendLocation({ latitude: latitude, longitud: longitude })
+            }
+        } catch (e) {
+            console.log(e)
+        }
+
+    }
+
+
     return (
         <BelowStatusBarView>
             <View style={styles.mainContainer}>
@@ -99,7 +140,10 @@ export default function MessageScreen(props) {
                             <FontAwesome name="user-circle-o" size={30} color="black" />
                             <Text style={styles.receiverHeaderName}>{receiverName}</Text>
                         </View>
-                        <View></View>
+                        <Pressable onPress={handleShareLocation} style={styles.shareLocationBtn}>
+                            <Entypo name="location" size={25} color="black" />
+                            <Text style={styles.shareLocationText}>Share Location</Text>
+                        </Pressable>
                     </View>
                     <View style={styles.messages}>
                         <FlatList
@@ -109,6 +153,7 @@ export default function MessageScreen(props) {
                             renderItem={({ item }) => (
                                 <Message
                                     message={item.content}
+                                    location={item.location}
                                     isReceiver={item.receiverId !== authUser.user_id}
                                 />
                             )}
@@ -177,7 +222,16 @@ const styles = StyleSheet.create({
         padding: 10,
         borderTopWidth: 1,
         borderColor: '#ccc',
-    },
+    }, shareLocationText: {
+        fontSize: 13,
+        fontWeight: "500"
+    }, shareLocationBtn: {
+        alignItems: "center",
+        backgroundColor: "#FFAE42",
+        padding: 3,
+        borderRadius: 5
+    }
+
 });
 
 
