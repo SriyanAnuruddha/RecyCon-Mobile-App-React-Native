@@ -4,10 +4,10 @@ import { AntDesign } from '@expo/vector-icons';
 import { Alert, Pressable, Image, FlatList, View, StyleSheet, Text, TextInput, Button } from "react-native"
 import { Picker } from '@react-native-picker/picker';
 import { useContext, useEffect, useState } from "react";
-import marketImage from "../assets/images/icons/market.png"
 import axios from "axios";
 import { AuthContext } from "../context/AuthContextManager";
 import { useNavigation } from '@react-navigation/native';
+import * as Location from 'expo-location';
 
 const Item = (props) => {
     const navigation = useNavigation();
@@ -36,17 +36,62 @@ export default function ItemsScreen() {
     const [category, setCategory] = useState();
     const [itemName, setItemName] = useState()
 
+
+    async function getLocation() {
+        try {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                Alert.alert('Permission to access location was denied');
+                console.log('Permission to access location was denied');
+                return;
+            }
+
+            let location = await Location.getCurrentPositionAsync({});
+            if (!location) {
+                Alert.alert('Unable to obtain location');
+                return;
+            }
+
+            if (location) {
+                return ({
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude
+                })
+            }
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     useEffect(() => {
         (async () => {
             try {
-                const respose = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/buyers/new-items`, { headers: { "Authorization": `Bearer ${authUser.token}` } })
+                let { latitude, longitude } = await getLocation()
+
+                const respose = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/buyers/new-items`, {
+                    headers: {
+                        "Authorization": `Bearer ${authUser.token}`
+                    },
+                    params: {
+                        category: category ? category : "",
+                        itemName: itemName ? itemName : "",
+                        country: authUser.country,
+                        coords: {
+                            latitude: latitude ? latitude : null,
+                            longitude: longitude ? longitude : null,
+                        }
+                    }
+                })
                 setItems(respose.data)
             } catch (e) {
-                console.error("cant retrive new items from server")
+                console.error("cant retrive new items from server", e)
             }
         })()
 
     }, [])
+
+
 
     async function getFilteredItems() {
 
@@ -54,13 +99,22 @@ export default function ItemsScreen() {
             Alert.alert("Please select a category or enter a item name")
         } else {
             try {
+                let { latitude, longitude } = await getLocation()
+
                 const response = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/buyers/filtered-items`, {
+
+
                     headers: {
                         "Authorization": `Bearer ${authUser.token}`
                     },
                     params: {
                         category: category ? category : "",
-                        itemName: itemName ? itemName : ""
+                        itemName: itemName ? itemName : "",
+                        country: authUser.country,
+                        coords: {
+                            latitude: latitude ? latitude : null,
+                            longitude: longitude ? longitude : null,
+                        }
                     }
                 })
                 setItems(response.data)

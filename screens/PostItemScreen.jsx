@@ -13,6 +13,7 @@ import axios from "axios";
 export default function PostItemScreen(props) {
     const [image, setImage] = useState(null);
     const { authUser } = useContext(AuthContext)
+    const baseUrl = process.env.EXPO_PUBLIC_API_URL;
 
     const [formData, setFormData] = useState({
         name: "",
