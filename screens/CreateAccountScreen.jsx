@@ -20,7 +20,7 @@ export default function CreateAccountScreen(props) {
         { label: 'Item Buyer', value: 'buyer' }
     ]);
     const [isSelected, setSelection] = useState(false);
-
+    const baseUrl = process.env.EXPO_PUBLIC_API_URL
     const { login } = useContext(AuthContext)
 
     function handleGoBackButton() {
@@ -105,7 +105,7 @@ export default function CreateAccountScreen(props) {
                         }
                     }
 
-                    const response = await axios.post("http://10.0.2.2:3000/users/register", formData)
+                    const response = await axios.post(`${baseUrl}/users/register`, formData)
                     if (response.status === 200) {
                         const { user, JWT_Token } = response.data
                         if (user && JWT_Token) {

@@ -13,7 +13,7 @@ export default function LoginScreen(props) {
     })
 
     const { login } = useContext(AuthContext)
-
+    const baseUrl = process.env.EXPO_PUBLIC_API_URL
     function handleGoBackButton() {
         props.navigation.goBack()
     }
@@ -45,7 +45,7 @@ export default function LoginScreen(props) {
         } else {
             try {
 
-                const response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/users/login`, loginData)
+                const response = await axios.post(`${baseUrl}/users/login`, loginData)
                 const user = response.data.user
                 const token = response.data.JWT_Token
                 if (user && token) {
