@@ -101,6 +101,7 @@ export default function MessageScreen(props) {
         }
     };
 
+    console.log("rendered")
 
     async function handleShareLocation() {
         try {

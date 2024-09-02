@@ -81,8 +81,8 @@ export default function CurrentListingsScreen(props) {
                     />
                 </View>
             </View>
-            <BottomNavBar />
-        </BelowStatusBarView>
+            <BottomNavBar navigation={props.navigation} />
+        </BelowStatusBarView >
     )
 }
 

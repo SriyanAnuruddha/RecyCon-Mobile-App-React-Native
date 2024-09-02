@@ -46,7 +46,7 @@ export default function BuyerHomeScreen(props) {
                     </Pressable>
                 </View>
 
-                <BottomNavBar />
+                <BottomNavBar navigation={props.navigation} />
             </View>
         </BelowStatusBarView >
     )

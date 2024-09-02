@@ -73,7 +73,7 @@ export default function LoginScreen(props) {
     return (
         <BelowStatusBarView>
             <View style={styles.container}>
-                <AntDesign name="left" size={35} color="#ffff" onPress={handleGoBackButton} style={styles.goBackBtn} />
+                <AntDesign onPress={handleGoBackButton} style={styles.goBackBtn} name="arrowleft" size={40} color="black" />
                 <Text style={styles.loginText}>Login</Text>
                 <View style={styles.inputTextContainer}>
                     <TextInput value={loginData.email} style={styles.inputText} placeholder="Email" onChangeText={(text) => onTextHandler('email', text)} />
@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     goBackBtn: {
-        marginTop: 10
+        marginTop: 10,
+        marginLeft: 15
     }
 });

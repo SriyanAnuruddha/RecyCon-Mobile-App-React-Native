@@ -146,7 +146,7 @@ export default function CreateAccountScreen(props) {
     return (
         <BelowStatusBarView >
             <View style={styles.mainContainer}>
-                <AntDesign name="left" size={35} color="#ffff" onPress={handleGoBackButton} style={styles.goBackBtn} />
+                <AntDesign onPress={handleGoBackButton} style={styles.goBackBtn} name="arrowleft" size={35} color="black" />
                 <FontAwesome name="user-circle-o" size={50} color="black" style={styles.icon} />
                 <Text style={styles.titleText}>create an account</Text>
                 <View style={styles.inputTextContainer}>
@@ -167,14 +167,13 @@ export default function CreateAccountScreen(props) {
                         <TextInput value={formData.lastName} style={styles.inputText} placeholder="Last Name" onChangeText={(text) => onChangeTextHandler("lastName", text)} />
                         <TextInput value={formData.email} style={styles.inputText} placeholder="Email" onChangeText={(text) => onChangeTextHandler("email", text)} />
                         <View style={styles.textBox}>
-                            <Text style={styles.fieldName}>Country</Text>
                             <View style={styles.pickerContainer}>
                                 <Picker
                                     selectedValue={formData.country}
                                     onValueChange={(itemValue, itemIndex) =>
                                         onChangeTextHandler('country', itemValue)
                                     }>
-                                    <Picker.Item label="---" value="---" />
+                                    <Picker.Item label="Select Country" value="Select Country" />
                                     <Picker.Item label="Afghanistan" value="Afghanistan" />
                                     <Picker.Item label="Albania" value="Albania" />
                                     <Picker.Item label="Algeria" value="Algeria" />
@@ -404,7 +403,7 @@ const styles = StyleSheet.create({
     },
     goBackBtn: {
         marginTop: 10,
-        marginLeft: 25,
+        marginLeft: 30,
         marginRight: "auto"
     },
     icon: {

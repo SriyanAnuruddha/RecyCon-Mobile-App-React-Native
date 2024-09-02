@@ -73,7 +73,7 @@ export default function MyOrders(props) {
                     />
                 }
             </View>
-            <BottomNavBar />
+            <BottomNavBar navigation={props.navigation} />
         </BelowStatusBarView>
     );
 }

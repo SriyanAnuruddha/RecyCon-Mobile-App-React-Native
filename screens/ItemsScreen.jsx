@@ -16,10 +16,16 @@ const Item = (props) => {
             <Image style={styles.itemImage} source={{ uri: `data:image/jpeg;base64,${props.itemImage}` }} />
             <View style={styles.itemTextContainer}>
                 <Text style={styles.productNameText}>{props.name}</Text>
-                <Text style={styles.itemPriceText}>{props.price}</Text>
+
                 <View style={styles.quantityDetailsContainer}>
-                    <Text style={styles.quantityText}> {props.quantity}</Text>
-                    <Text>{props.metric}</Text>
+                    <View style={styles.detailsContainer}>
+                        <Text style={styles.detailsText}>Price: </Text>
+                        <Text style={styles.itemPriceText}>{props.price}</Text>
+                    </View>
+                    <View style={styles.detailsContainer}>
+                        <Text style={styles.detailsText}>Quantity: </Text>
+                        <Text style={styles.itemPriceText}> {props.quantity} {props.metric}</Text>
+                    </View>
                 </View>
             </View>
         </Pressable>
@@ -30,7 +36,7 @@ function onPressItemHandler(navigation, itemID) {
     navigation.navigate("SingleItemScreen", { itemID: itemID })
 }
 
-export default function ItemsScreen() {
+export default function ItemsScreen(props) {
     const { authUser } = useContext(AuthContext)
     const [items, setItems] = useState()
     const [category, setCategory] = useState();
@@ -130,6 +136,7 @@ export default function ItemsScreen() {
                 <Text style={styles.headerText}>Recyclable Items</Text>
                 <View style={styles.searchBox}>
                     <View style={styles.pickerContainer}>
+
                         <Picker
                             selectedValue={category}
                             onValueChange={(itemValue, itemIndex) =>
@@ -148,7 +155,7 @@ export default function ItemsScreen() {
                             <Picker.Item label="Wood" value="Wood" />
                         </Picker>
                     </View>
-                    <TextInput style={styles.searchBoxInput} onChangeText={text => setItemName(text)} />
+                    <TextInput style={styles.searchBoxInput} placeholder="Search Items..." onChangeText={text => setItemName(text)} />
                     <AntDesign onPress={getFilteredItems} style={styles.searchIcon} name="search1" size={26} color="black" />
                 </View>
                 <FlatList
@@ -167,7 +174,7 @@ export default function ItemsScreen() {
                     keyExtractor={item => item._id}
                 />
             </View>
-            <BottomNavBar />
+            <BottomNavBar navigation={props.navigation} />
         </BelowStatusBarView>
     )
 }
@@ -207,7 +214,7 @@ const styles = StyleSheet.create({
     itemContainer: {
         flexDirection: "row",
         backgroundColor: "#fff",
-        margin: 10,
+        margin: 20,
         padding: 10,
         borderRadius: 8
     },
@@ -216,18 +223,27 @@ const styles = StyleSheet.create({
         height: 100
     },
     itemTextContainer: {
-        marginLeft: 10
+        marginLeft: 10,
+        flexDirection: "column"
     },
     productNameText: {
         fontSize: 20,
+        paddingBottom: 5
     },
     itemPriceText: {
         fontSize: 18,
         marginVertical: 5
 
     }, quantityDetailsContainer: {
-        flexDirection: "row",
+        flexDirection: "column",
     }, quantityText: {
         marginRight: 5
+    },
+    detailsContainer: {
+        flexDirection: "row",
+        alignItems: "center"
+    }, detailsText: {
+        fontSize: 18,
+        fontWeight: "600"
     }
 })

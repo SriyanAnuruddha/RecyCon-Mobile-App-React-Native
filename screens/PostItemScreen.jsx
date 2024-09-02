@@ -99,7 +99,7 @@ export default function PostItemScreen(props) {
             <View style={styles.mainContainer}>
                 <View style={styles.formContainer}>
                     <View style={styles.headerContainer}>
-                        <AntDesign name="left" size={35} onPress={goBackBtnhandler} color="black" style={styles.goBackBtn} />
+                        <AntDesign onPress={goBackBtnhandler} style={styles.goBackBtn} name="arrowleft" size={33} color="black" />
                         <Text style={styles.postItemText}>Post New Item</Text>
                     </View>
                     <View style={styles.imageContainer}>
@@ -191,6 +191,7 @@ const styles = StyleSheet.create({
     headerContainer: {
         flexDirection: "row",
         justifyContent: "space-evenly",
+        marginBottom: 10
     }, imageContainer: {
         flexDirection: "row",
         alignItems: 'center',
